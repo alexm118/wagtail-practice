@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    image: wagtailpractice-web
+    container_name: wagtailpractice-web
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    environment:
+      - DATABASE_URL=postgres://postgres@db/wagtailpractice
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    image: postgres
+    container_name: wagtailpractice-db
+    environment:
+      - POSTGRES_DB=wagtailpractice
